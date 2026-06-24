@@ -1,0 +1,10 @@
+FHS|^~\&|SendingApp|SendingFacility
+BHS|^~\&|SendingApp|SendingFacility
+MSH|^~\&|SendingApp|SendingFacility|ReceivingApp|ReceivingFacility|20260605120000||ADT^A01|MSG00010|P|2.5
+EVN|A01|20260605120000
+PID|1||123456^^^MRN||DOE^JOHN
+MSH|^~\&|SendingApp|SendingFacility|ReceivingApp|ReceivingFacility|20260605120001||ADT^A01|MSG00011|P|2.5
+EVN|A01|20260605120001
+PID|1||789012^^^MRN||SMITH^JANE
+BTS|2
+FTS|1

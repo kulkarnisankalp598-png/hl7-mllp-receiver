@@ -3,7 +3,7 @@ import threading
 import logging
 
 from mllp_receiver.mllp import read_mllp_message, wrap_mllp
-from mllp_receiver.hl7_parser import extract_basic_fields, is_batch_message, split_batch_messages
+from mllp_receiver.hl7_parser import extract_basic_fields, is_batch_message, split_batch_messages, parse_with_hl7apy
 from mllp_receiver.ack_builder import build_aa_ack, build_ae_ack, build_ar_ack
 
 logger = logging.getLogger("mllp_receiver")
@@ -52,9 +52,9 @@ def process_message(client_socket, payload, listener_name):
 
 
 def process_single_message(client_socket, message, listener_name):
-    """Parse a single HL7 message, log metadata, and send ACK."""
+    """Parse a single HL7 message using hl7apy, log metadata, and send ACK."""
     try:
-        message_type, control_id = extract_basic_fields(message)
+        message_type, control_id, parsed = parse_with_hl7apy(message)
         logger.info(f"[{listener_name}] Received message — type={message_type}, control_id={control_id}")
 
         ack = build_aa_ack(control_id)
@@ -62,7 +62,7 @@ def process_single_message(client_socket, message, listener_name):
         logger.info(f"[{listener_name}] Sent AA ACK for control_id={control_id}")
 
     except ValueError as e:
-        logger.error(f"[{listener_name}] Failed to parse message: {e}")
+        logger.error(f"[{listener_name}] Failed to parse message with hl7apy: {e}")
         ack = build_ar_ack("UNKNOWN", str(e))
         client_socket.sendall(wrap_mllp(ack))
 
