@@ -1,0 +1,24 @@
+{
+  "application": {
+    "name": "Python HL7 MLLP Receiver",
+    "logLevel": "INFO"
+  },
+  "listeners": [
+    {
+      "name": "ADTListener",
+      "ipAddress": "0.0.0.0",
+      "port": 2575,
+      "receiveTimeoutSeconds": 30,
+      "maxMessageSizeKb": 1024,
+      "ackMode": "MESSAGE_LEVEL"
+    },
+    {
+      "name": "LabListener",
+      "ipAddress": "0.0.0.0",
+      "port": 2576,
+      "receiveTimeoutSeconds": 30,
+      "maxMessageSizeKb": 2048,
+      "ackMode": "MESSAGE_LEVEL"
+    }
+  ]
+}
